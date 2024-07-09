@@ -4,6 +4,8 @@ import '../modules/MainMenu/bindings/main_menu_binding.dart';
 import '../modules/MainMenu/views/main_menu_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/keranjang/bindings/keranjang_binding.dart';
+import '../modules/keranjang/views/keranjang_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/produk/bindings/produk_binding.dart';
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.PRODUK,
       page: () => const ProdukView(),
       binding: ProdukBinding(),
+    ),
+    GetPage(
+      name: _Paths.KERANJANG,
+      page: () => const KeranjangView(),
+      binding: KeranjangBinding(),
     ),
   ];
 }

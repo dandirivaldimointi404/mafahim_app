@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mafahim_app/app/modules/home/views/home_view.dart';
+import 'package:mafahim_app/app/modules/keranjang/views/keranjang_view.dart';
 import 'package:mafahim_app/app/modules/produk/views/produk_view.dart';
 import 'package:mafahim_app/app/modules/profile/views/profile_view.dart';
 import '../controllers/main_menu_controller.dart';
@@ -18,6 +19,7 @@ class MainMenuView extends StatelessWidget {
             children: const [
               HomeView(),
               ProdukView(),
+              KeranjangView(),
               ProfileView(),
             ],
           ),
@@ -37,6 +39,10 @@ class MainMenuView extends StatelessWidget {
             _bottomNavigationBarItem(
               icon: Icons.shopping_bag,
               label: 'Produk',
+            ),
+               _bottomNavigationBarItem(
+              icon: Icons.shopping_cart,
+              label: 'Keranjang',
             ),
             _bottomNavigationBarItem(
               icon: Icons.person,

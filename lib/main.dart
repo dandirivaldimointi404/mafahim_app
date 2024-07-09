@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 import 'package:sp_util/sp_util.dart';
@@ -17,6 +18,7 @@ void main() async {
           ? Routes.MAIN_MENU
           : Routes.LOGIN,
       getPages: AppPages.routes,
+      builder: EasyLoading.init(),
     ),
   );
 }
