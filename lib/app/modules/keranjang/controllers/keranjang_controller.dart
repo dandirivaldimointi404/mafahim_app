@@ -14,16 +14,7 @@ class KeranjangController extends GetxController {
 
   int get cartItems => produkList.length;
 
-  @override
-  void onReady() {
-    super.onReady();
-    // Initialize cart items here if needed
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void increment() => count.value++;
 

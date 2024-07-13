@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 
 class ProdukView extends GetView<ProdukController> {
-  const ProdukView({Key? key}) : super(key: key);
+  const ProdukView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class ProdukView extends GetView<ProdukController> {
               ProductModel product = controller.productList[index];
               return GestureDetector(
                 onTap: () {
-                  Get.to(() => DetailProdukView(), arguments: product); 
+                  Get.to(() => const DetailProdukView(), arguments: product); 
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -106,7 +106,7 @@ class ProdukView extends GetView<ProdukController> {
 }
 
 class DetailProdukView extends StatelessWidget {
-  const DetailProdukView({Key? key}) : super(key: key);
+  const DetailProdukView({super.key});
 
   @override
   Widget build(BuildContext context) {

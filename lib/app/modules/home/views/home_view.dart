@@ -19,7 +19,7 @@ class HomeView extends GetView<HomeController> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.asset(
-                  "img/mafahim.png",
+                  "images/mafahim.png",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -67,8 +67,8 @@ class HomeView extends GetView<HomeController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildActivityImage('img/lensa1.jpg'),
-              _buildActivityImage('img/lensa2.jpg'),
+              _buildActivityImage('images/lensa1.jpg'),
+              _buildActivityImage('images/lensa2.jpg'),
             ],
           ),
 
@@ -77,8 +77,8 @@ class HomeView extends GetView<HomeController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildActivityImage('img/lensa3.jpg'),
-              _buildActivityImage('img/lensa4.jpg'),
+              _buildActivityImage('images/lensa3.jpg'),
+              _buildActivityImage('images/lensa4.jpg'),
             ],
           ),
         ],

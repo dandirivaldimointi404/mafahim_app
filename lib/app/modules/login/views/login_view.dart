@@ -5,7 +5,7 @@ import 'package:mafahim_app/app/modules/register/views/register_view.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class LoginView extends GetView<LoginController> {
             Padding(
               padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
               child: Image.asset(
-                'img/mafahim.png', 
+                'images/mafahim.png', 
                 height: 200,
               ),
             ),
