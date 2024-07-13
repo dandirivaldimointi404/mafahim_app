@@ -9,6 +9,8 @@ import '../controllers/produk_controller.dart';
 class ProdukView extends GetView<ProdukController> {
   const ProdukView({super.key});
 
+  static const String defaultImagePath = 'images/mafahim.png';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,24 +55,27 @@ class ProdukView extends GetView<ProdukController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        SizedBox(
+                        // ignore: sized_box_for_whitespace
+                        Container(
                           height: 100,
-                          width: double.infinity,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(10.0),
                             ),
                             child: Image.network(
-                              product.gambarProduk,
+                              product.gambarProduk.isNotEmpty
+                                  ? product.gambarProduk
+                                  : defaultImagePath,
                               fit: BoxFit.cover,
+                              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                return Image.asset(defaultImagePath, fit: BoxFit.cover);
+                              },
                             ),
                           ),
                         ),
                         Expanded(
-                          flex: 1,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -79,7 +84,7 @@ class ProdukView extends GetView<ProdukController> {
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                    fontSize: 10.0,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -91,17 +96,26 @@ class ProdukView extends GetView<ProdukController> {
                                     color: Colors.grey[600],
                                   ),
                                 ),
-                                const SizedBox(height: 4.0), 
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: SizedBox(
-                                    width: 30,
-                                    height: 30,
-                                    child: FloatingActionButton(
-                                      onPressed: () =>
-                                          controller.addToCart(product),
-                                      backgroundColor: Colors.green,
-                                      child: const Icon(Icons.add, size: 20),
+                                const SizedBox(height: 8.0),
+                                // Circular green button with '+'
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.green,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () => controller.addToCart(product),
+                                    child: const Center(
+                                      child: Text(
+                                        '+',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),

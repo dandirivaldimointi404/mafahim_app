@@ -23,12 +23,7 @@ class DetailProdukView extends StatelessWidget {
               width: double.infinity,
               child: Stack(
                 children: [
-                  Image.network(
-                    product.gambarProduk,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: double.infinity,
-                  ),
+                  _buildProductImage(),
                   Positioned(
                     bottom: 0,
                     left: 0,
@@ -112,6 +107,34 @@ class DetailProdukView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildProductImage() {
+    // ignore: unnecessary_null_comparison
+    if (product.gambarProduk != null &&
+        (product.gambarProduk.startsWith('http') ||
+            product.gambarProduk.startsWith('https'))) {
+      return Image.network(
+        product.gambarProduk,
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
+        errorBuilder: (context, error, stackTrace) {
+          return _buildDefaultImage();
+        },
+      );
+    } else {
+      return _buildDefaultImage();
+    }
+  }
+
+  Widget _buildDefaultImage() {
+    return Image.asset(
+      'images/mafahim.png', // Path to your default image asset
+      fit: BoxFit.cover,
+      width: double.infinity,
+      height: double.infinity,
     );
   }
 }
