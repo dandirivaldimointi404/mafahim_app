@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mafahim_app/app/data/produk_provider.dart';
+import 'package:mafahim_app/app/modules/produk/models/produk.dart';
 
 class ProdukController extends GetxController {
   var productList = <ProductModel>[].obs;
@@ -36,7 +37,6 @@ class ProdukController extends GetxController {
         }
 
       } else {
-        // handle error
         Get.snackbar('Error', 'Failed to load products');
       }
     } finally {
@@ -45,25 +45,4 @@ class ProdukController extends GetxController {
   }
 }
 
-class ProductModel {
-  final int id;
-  final String namaProduk;
-  final double hargaProduk;
-  final String gambarProduk;
 
-  ProductModel({
-    required this.id,
-    required this.namaProduk,
-    required this.hargaProduk,
-    required this.gambarProduk,
-  });
-
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
-      id: json['id'],
-      namaProduk: json['nama_produk'],
-      hargaProduk: double.parse(json['harga_produk'].toString()),
-      gambarProduk: json['gambar_produk'],
-    );
-  }
-}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mafahim_app/app/modules/produk/models/produk.dart';
 import '../controllers/produk_controller.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
@@ -181,13 +182,13 @@ class DetailProdukView extends StatelessWidget {
                 color: Colors.green,
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Text(
-            //     product.deskripsiProduk, // Use product description
-            //     style: const TextStyle(fontSize: 16),
-            //   ),
-            // ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                product.deskripsiProduk, // Use product description
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Row(
@@ -198,7 +199,7 @@ class DetailProdukView extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   Text(
-                    'Rating: ', // Placeholder for rating
+                    'Rating: ', 
                     style: TextStyle(fontSize: 16, color: Colors.green),
                   ),
                 ],

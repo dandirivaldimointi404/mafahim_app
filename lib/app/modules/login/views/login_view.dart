@@ -63,7 +63,12 @@ class LoginView extends GetView<LoginController> {
                   onPressed: () {
                     controller.auth();
                   },
-                  child: const Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green
+                  ),
+                  child: const Text('Login',
+                  style: TextStyle(color: Colors.white),),
+                  
                 ),
               ),
               const SizedBox(height: 10),

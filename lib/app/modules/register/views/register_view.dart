@@ -25,12 +25,15 @@ class RegisterView extends GetView<RegisterController> {
               buildUsernameTextField(),
               const SizedBox(height: 16),
               buildPasswordTextField(),
-              const SizedBox(height: 32), // Increased spacing after fields
+              const SizedBox(height: 32), 
               ElevatedButton(
                 onPressed: () {
                   controller.register();
                 },
-                child: const Text('Register'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                ),
+                child: const Text('Register', style: TextStyle(color: Colors.white)),
               ),
             ],
           ),
