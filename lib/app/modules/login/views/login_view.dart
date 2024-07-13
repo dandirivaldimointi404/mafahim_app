@@ -10,74 +10,77 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
-              child: Image.asset(
-                'images/mafahim.png', 
-                height: 200,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: controller.txtUsername,
-                decoration: const InputDecoration(
-                  labelText: 'Username',
-                  prefixIcon: Icon(Icons.person, color: Colors.green),
-                  border: OutlineInputBorder(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
+                child: Image.asset(
+                  'images/mafahim.png', 
+                  height: 200,
                 ),
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Obx(() => TextField(
-                obscureText: !controller.showPassword.value,
-                controller: controller.txtPassword,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  prefixIcon: const Icon(Icons.lock, color: Colors.green),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      controller.showPassword.value
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                      color: Colors.green,
-                    ),
-                    onPressed: () => controller.toggleShowPassword(),
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: controller.txtUsername,
+                  decoration: const InputDecoration(
+                    labelText: 'Username',
+                    prefixIcon: Icon(Icons.person, color: Colors.green),
+                    border: OutlineInputBorder(),
                   ),
-                  border: const OutlineInputBorder(),
                 ),
-              )),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  controller.auth();
+              ),
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Obx(() => TextField(
+                  obscureText: !controller.showPassword.value,
+                  controller: controller.txtPassword,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    prefixIcon: const Icon(Icons.lock, color: Colors.green),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        controller.showPassword.value
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.green,
+                      ),
+                      onPressed: () => controller.toggleShowPassword(),
+                    ),
+                    border: const OutlineInputBorder(),
+                  ),
+                )),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    controller.auth();
+                  },
+                  child: const Text('Login'),
+                ),
+              ),
+              const SizedBox(height: 10),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => const RegisterView());
                 },
-                child: const Text('Login'),
-              ),
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {
-                Get.to(() => const RegisterView());
-              },
-              child: const Text(
-                'Belum punya akun? Registrasi Sekarang!',
-                style: TextStyle(
-                  color: Colors.blue,
+                child: const Text(
+                  'Belum punya akun? Registrasi Sekarang!',
+                  style: TextStyle(
+                    color: Colors.blue,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
