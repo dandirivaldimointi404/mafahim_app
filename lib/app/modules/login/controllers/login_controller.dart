@@ -19,7 +19,7 @@ class LoginController extends GetxController {
     String username = txtUsername.text;
     String password = txtPassword.text;
 
-     if (username.isEmpty || password.isEmpty) {
+    if (username.isEmpty || password.isEmpty) {
       Get.snackbar(
         "Error",
         "Username dan Password Tidak Boleh Kosong",
@@ -87,6 +87,5 @@ class LoginController extends GetxController {
         }
       });
     }
-
   }
 }

@@ -18,7 +18,7 @@ class LoginView extends GetView<LoginController> {
             Padding(
               padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
               child: Image.asset(
-                'assets/img/mafahim.png', // Make sure this image path is correct
+                'img/mafahim.png', 
                 height: 200,
               ),
             ),

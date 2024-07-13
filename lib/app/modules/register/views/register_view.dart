@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../controllers/register_controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
-  const RegisterView({Key? key}) : super(key: key);
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,23 +20,15 @@ class RegisterView extends GetView<RegisterController> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 20),
-              const Text(
-                'Register',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
               buildNameTextField(),
               const SizedBox(height: 16),
-              buildEmailTextField(),
+              buildUsernameTextField(),
               const SizedBox(height: 16),
               buildPasswordTextField(),
-              const SizedBox(height: 16),
-              buildPhoneTextField(),
-              const SizedBox(height: 32),
+              const SizedBox(height: 32), // Increased spacing after fields
               ElevatedButton(
                 onPressed: () {
-                  controller.register(); // Call register method in controller
+                  controller.register();
                 },
                 child: const Text('Register'),
               ),
@@ -57,12 +49,12 @@ class RegisterView extends GetView<RegisterController> {
     );
   }
 
-  Widget buildEmailTextField() {
+  Widget buildUsernameTextField() {
     return TextField(
-      controller: controller.emailController,
+      controller: controller.usernameController,
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
-        labelText: 'Email',
+        labelText: 'Username',
         border: OutlineInputBorder(),
       ),
     );
@@ -74,17 +66,6 @@ class RegisterView extends GetView<RegisterController> {
       obscureText: true,
       decoration: const InputDecoration(
         labelText: 'Password',
-        border: OutlineInputBorder(),
-      ),
-    );
-  }
-
-  Widget buildPhoneTextField() {
-    return TextField(
-      controller: controller.phoneController,
-      keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: 'Phone Number',
         border: OutlineInputBorder(),
       ),
     );
