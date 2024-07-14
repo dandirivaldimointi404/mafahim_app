@@ -1,7 +1,8 @@
+// keranjang_view.dart
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mafahim_app/app/modules/keranjang/models/keranjang.dart';
-
 import '../controllers/keranjang_controller.dart';
 
 class KeranjangView extends GetView<KeranjangController> {
@@ -17,15 +18,16 @@ class KeranjangView extends GetView<KeranjangController> {
         actions: [
           IconButton(
             onPressed: () {
+              // Implement any action here if needed
             },
-            icon: const Icon(Icons.shopping_cart), 
+            icon: const Icon(Icons.add),
           ),
         ],
       ),
       body: Obx(() {
         if (controller.isLoading.isTrue) {
           return const Center(
-            child: CircularProgressIndicator(), 
+            child: CircularProgressIndicator(),
           );
         } else if (controller.keranjangList.isEmpty) {
           return const Center(
@@ -37,8 +39,7 @@ class KeranjangView extends GetView<KeranjangController> {
             itemBuilder: (context, index) {
               Keranjang keranjang = controller.keranjangList[index];
               return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Card(
                   elevation: 3,
                   shape: RoundedRectangleBorder(
@@ -51,26 +52,58 @@ class KeranjangView extends GetView<KeranjangController> {
                     },
                     child: ListTile(
                       leading: CircleAvatar(
-                        radius: 30, 
-                        backgroundImage: keranjang.produk.gambarProduk.isEmpty
-                            ? NetworkImage(keranjang.produk.gambarProduk)
-                            : const AssetImage('images/mafahim.png'),
+                        radius: 20,
+                        backgroundImage: NetworkImage(keranjang.produk.gambarProduk),
                       ),
-                      title: Text(
-                        keranjang.produk.namaProduk,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      title: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  keranjang.produk.namaProduk,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Rp ${keranjang.produk.hargaProduk}',
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  controller.kurangiJumlahBarang(keranjang);
+                                },
+                                icon: const Icon(Icons.remove),
+                              ),
+                              Text('${keranjang.qty}'),
+                              IconButton(
+                                onPressed: () {
+                                  controller.tambahJumlahBarang(keranjang);
+                                },
+                                icon: const Icon(Icons.add),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      subtitle: Text(
-                        'Harga: ${keranjang.produk.hargaProduk}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
-                        ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          controller.hapusBarang(keranjang);
+                        },
+                        icon: const Icon(Icons.delete),
                       ),
-                      // You can add more content here if needed
                     ),
                   ),
                 ),

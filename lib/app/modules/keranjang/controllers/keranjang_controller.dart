@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:mafahim_app/app/data/keranjang_provider.dart';
 import 'package:mafahim_app/app/modules/keranjang/models/keranjang.dart';
+import 'package:mafahim_app/app/modules/produk/models/produk.dart';
 
 class KeranjangController extends GetxController {
   var keranjangList = <Keranjang>[].obs;
@@ -10,6 +11,8 @@ class KeranjangController extends GetxController {
   final KeranjangProvider keranjangProvider;
 
   KeranjangController({required this.keranjangProvider});
+
+  get navigateToCartScreen => null;
 
   @override
   void onInit() {
@@ -45,4 +48,14 @@ class KeranjangController extends GetxController {
       isLoading(false);
     }
   }
+
+  void navigateToProductDetail(ProductModel produk) {}
+
+  void tambahBarangKeKeranjang() {}
+
+  void tambahJumlahBarang(Keranjang keranjang) {}
+
+  void kurangiJumlahBarang(Keranjang keranjang) {}
+
+  void hapusBarang(Keranjang keranjang) {}
 }
