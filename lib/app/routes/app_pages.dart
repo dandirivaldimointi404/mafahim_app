@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/MainMenu/bindings/main_menu_binding.dart';
 import '../modules/MainMenu/views/main_menu_view.dart';
+import '../modules/history/bindings/history_binding.dart';
+import '../modules/history/views/history_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/keranjang/bindings/keranjang_binding.dart';
@@ -58,6 +60,11 @@ class AppPages {
       name: _Paths.KERANJANG,
       page: () => const KeranjangView(),
       binding: KeranjangBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORY,
+      page: () => const HistoryView(),
+      binding: HistoryBinding(),
     ),
   ];
 }

@@ -1,31 +1,48 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:mafahim_app/app/data/keranjang_provider.dart';
+import 'package:mafahim_app/app/modules/keranjang/models/keranjang.dart';
 
 class KeranjangController extends GetxController {
-  final count = 0.obs;
-  final RxList<Map<String, dynamic>> produkList = <Map<String, dynamic>>[].obs;
+  var keranjangList = <Keranjang>[].obs;
+  var isLoading = true.obs;
 
-  double get totalPrice {
-    double total = 0;
-    for (var produk in produkList) {
-      total += produk['harga'] * produk['jumlah'];
-    }
-    return total;
+  final KeranjangProvider keranjangProvider;
+
+  KeranjangController({required this.keranjangProvider});
+
+  @override
+  void onInit() {
+    fetchKeranjang();
+    super.onInit();
   }
 
-  int get cartItems => produkList.length;
+  void fetchKeranjang() async {
+    try {
+      isLoading(true);
+      final response = await keranjangProvider.getKeranjang();
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.body['data'];
+        keranjangList.value =
+            data.map((item) => Keranjang.fromJson(item)).toList();
 
-
-
-  void increment() => count.value++;
-
-  void ubahJumlahProduk(Map<String, dynamic> produk, int newQuantity) {
-    final index = produkList.indexWhere((p) => p['id'] == produk['id']);
-    if (index != -1) {
-      produkList[index]['jumlah'] = newQuantity;
+        if (kDebugMode) {
+          debugPrint('Data keranjang berhasil diambil:');
+          for (var keranjang in keranjangList) {
+            debugPrint(
+                'ID: ${keranjang.id}, Qty: ${keranjang.qty}, Nama: ${keranjang.produk.namaProduk}');
+          }
+        }
+      } else {
+        Get.snackbar('Error', 'Failed to load cart items');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Exception occurred while fetching cart items: $e');
+      }
+      Get.snackbar('Error', 'Exception occurred while fetching cart items');
+    } finally {
+      isLoading(false);
     }
-  }
-
-  void hapusProduk(Map<String, dynamic> produk) {
-    produkList.removeWhere((p) => p['id'] == produk['id']);
   }
 }

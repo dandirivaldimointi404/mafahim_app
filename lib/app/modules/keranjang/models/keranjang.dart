@@ -4,27 +4,27 @@ class Keranjang {
   final int id;
   final int userId;
   final ProductModel produk;
-  final double harga;
   final int qty;
+  final double harga;
   final String status;
 
   Keranjang({
     required this.id,
     required this.userId,
     required this.produk,
-    required this.harga,
     required this.qty,
+    required this.harga,
     required this.status,
   });
 
   factory Keranjang.fromJson(Map<String, dynamic> json) {
     return Keranjang(
-      id: json['id'],
-      userId: json['user_id'],
+      id: int.parse(json['id'].toString()),
+      userId: int.parse(json['user_id'].toString()),
       produk: ProductModel.fromJson(json['produk']),
-      harga: json['harga'].toDouble(),
-      qty: json['qty'],
-      status: json['status'],
+      qty: int.parse(json['qty'].toString()),
+      harga: double.parse(json['harga'].toString()),
+      status: json['status'].toString(),
     );
   }
 }

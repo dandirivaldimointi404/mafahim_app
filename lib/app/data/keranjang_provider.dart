@@ -7,4 +7,12 @@ class KeranjangProvider extends BaseProvider {
     return post('$myHttpServer/store', data, headers: myHttpHeader);
   }
 
+  Future<Response> getKeranjang() {
+    return get('$myHttpServer/index',  headers: myHttpHeader);
+  }
+
+  deleteKeranjang(int id) {}
+
+  updateQuantity(int id, int updatedQuantity) {}
+
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mafahim_app/app/data/keranjang_provider.dart';
 import 'package:mafahim_app/app/data/produk_provider.dart';
 import 'package:mafahim_app/app/modules/keranjang/controllers/keranjang_controller.dart';
 import 'package:mafahim_app/app/modules/produk/controllers/produk_controller.dart';
@@ -16,7 +17,7 @@ class MainMenuBinding extends Bindings {
       () => ProdukController(produkProvider: ProdukProvider()),
     );
     Get.lazyPut<KeranjangController>(
-      () => KeranjangController(),
+      () => KeranjangController(keranjangProvider: KeranjangProvider()),
     );
       Get.lazyPut<RegisterController>(
       () => RegisterController(),
