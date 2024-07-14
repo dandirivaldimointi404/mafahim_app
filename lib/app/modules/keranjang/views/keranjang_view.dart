@@ -1,9 +1,9 @@
-// keranjang_view.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// ignore: depend_on_referenced_packages
+import 'package:intl/intl.dart';
+import 'package:mafahim_app/app/modules/keranjang/controllers/keranjang_controller.dart';
 import 'package:mafahim_app/app/modules/keranjang/models/keranjang.dart';
-import '../controllers/keranjang_controller.dart';
 
 class KeranjangView extends GetView<KeranjangController> {
   const KeranjangView({super.key});
@@ -13,14 +13,13 @@ class KeranjangView extends GetView<KeranjangController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Keranjang'),
-        centerTitle: false,
         backgroundColor: Colors.green,
         actions: [
           IconButton(
             onPressed: () {
               // Implement any action here if needed
             },
-            icon: const Icon(Icons.add),
+            icon: const Icon(Icons.shopping_cart),
           ),
         ],
       ),
@@ -38,6 +37,8 @@ class KeranjangView extends GetView<KeranjangController> {
             itemCount: controller.keranjangList.length,
             itemBuilder: (context, index) {
               Keranjang keranjang = controller.keranjangList[index];
+              RxInt itemQuantity = controller.itemQuantities[index];
+
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Card(
@@ -69,7 +70,11 @@ class KeranjangView extends GetView<KeranjangController> {
                                   ),
                                 ),
                                 Text(
-                                  'Rp ${keranjang.produk.hargaProduk}',
+                                  NumberFormat.currency(
+                                    locale: 'id_ID',
+                                    symbol: 'Rp',
+                                    decimalDigits: 0,
+                                  ).format(keranjang.produk.hargaProduk),
                                   style: const TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,
@@ -83,14 +88,14 @@ class KeranjangView extends GetView<KeranjangController> {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                  controller.kurangiJumlahBarang(keranjang);
+                                  controller.decrementQuantity(index);
                                 },
                                 icon: const Icon(Icons.remove),
                               ),
-                              Text('${keranjang.qty}'),
+                              Obx(() => Text('${itemQuantity.value}')),
                               IconButton(
                                 onPressed: () {
-                                  controller.tambahJumlahBarang(keranjang);
+                                  controller.incrementQuantity(index);
                                 },
                                 icon: const Icon(Icons.add),
                               ),

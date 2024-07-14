@@ -4,9 +4,10 @@ class Keranjang {
   final int id;
   final int userId;
   final ProductModel produk;
-  final int qty;
+  late final int qty;
   final double harga;
   final String status;
+  int quantity;
 
   Keranjang({
     required this.id,
@@ -15,6 +16,7 @@ class Keranjang {
     required this.qty,
     required this.harga,
     required this.status,
+    required this.quantity,
   });
 
   factory Keranjang.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,8 @@ class Keranjang {
       qty: int.parse(json['qty'].toString()),
       harga: double.parse(json['harga'].toString()),
       status: json['status'].toString(),
+      quantity: 1,
     );
   }
+
 }
