@@ -18,14 +18,14 @@ class KeranjangView extends GetView<KeranjangController> {
           IconButton(
             onPressed: () {
             },
-            icon: const Icon(Icons.shopping_cart), // Replace with your desired icon
+            icon: const Icon(Icons.shopping_cart), 
           ),
         ],
       ),
       body: Obx(() {
         if (controller.isLoading.isTrue) {
           return const Center(
-            child: CircularProgressIndicator(), // Display a loading indicator
+            child: CircularProgressIndicator(), 
           );
         } else if (controller.keranjangList.isEmpty) {
           return const Center(
@@ -51,9 +51,10 @@ class KeranjangView extends GetView<KeranjangController> {
                     },
                     child: ListTile(
                       leading: CircleAvatar(
-                        radius: 30, // Adjust the size as needed
-                        backgroundImage:
-                            NetworkImage(keranjang.produk.gambarProduk),
+                        radius: 30, 
+                        backgroundImage: keranjang.produk.gambarProduk.isEmpty
+                            ? NetworkImage(keranjang.produk.gambarProduk)
+                            : const AssetImage('images/mafahim.png'),
                       ),
                       title: Text(
                         keranjang.produk.namaProduk,
