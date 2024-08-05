@@ -53,7 +53,7 @@ class KeranjangView extends GetView<KeranjangController> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(10),
                           onTap: () {
-                            // Handle tap on the card
+                           
                           },
                           child: ListTile(
                             leading: CircleAvatar(
@@ -145,7 +145,7 @@ class KeranjangView extends GetView<KeranjangController> {
                     Get.to(() => const CheckoutView());
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Colors.green, // Warna teks tombol
+                    foregroundColor: Colors.white, backgroundColor: Colors.green,
                   ),
                   child: const Text('Checkout'),
                 ),
