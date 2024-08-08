@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:mafahim_app/app/modules/keranjang/controllers/keranjang_controller.dart';
@@ -9,9 +10,9 @@ import '../../models/province_model.dart';
 
 class Provinsi extends GetView<KeranjangController> {
   const Provinsi({
-    Key? key,
+    super.key,
     required this.tipe,
-  }) : super(key: key);
+  });
 
   final String tipe;
 

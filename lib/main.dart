@@ -19,6 +19,7 @@ void main() async {
           : Routes.LOGIN,
       getPages: AppPages.routes,
       builder: EasyLoading.init(),
+      
     ),
   );
 }

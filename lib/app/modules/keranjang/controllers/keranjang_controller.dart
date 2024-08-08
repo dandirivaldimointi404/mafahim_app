@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,8 +6,8 @@ import 'package:mafahim_app/app/data/keranjang_provider.dart';
 import 'package:mafahim_app/app/modules/keranjang/models/keranjang.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
-
 import '../models/courier_model.dart';
+import 'package:intl/intl.dart';
 
 class KeranjangController extends GetxController {
   var hiddenKotaAsal = true.obs;
@@ -19,6 +18,16 @@ class KeranjangController extends GetxController {
   var kotaTujuanId = 0.obs;
   var hiddenButton = true.obs;
   var kurir = "".obs;
+
+   RxDouble shippingCost = 25000.00.obs;
+    final List<Map<String, double>> shippingOptions = [
+    {'Standar': 25000.00},
+    {'Ekspres': 50000.00},
+    {'Same Day': 100000.00},
+  ];
+
+  // Format currency menggunakan NumberFormat
+  final NumberFormat currencyFormat = NumberFormat.simpleCurrency(name: 'IDR');
 
   double berat = 0.0;
   String satuan = "gram";

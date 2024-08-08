@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mafahim_app/app/modules/keranjang/controllers/keranjang_controller.dart';
 import 'package:mafahim_app/app/modules/keranjang/models/keranjang.dart';
+import 'package:mafahim_app/app/modules/keranjang/views/cek_view.dart';
 import 'package:mafahim_app/app/modules/keranjang/views/checkout_view.dart';
 
 class KeranjangView extends GetView<KeranjangController> {

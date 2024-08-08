@@ -10,10 +10,10 @@ import '../../models/city_model.dart';
 
 class Kota extends GetView<KeranjangController> {
   const Kota({
-    Key? key,
+    super.key,
     required this.provId,
     required this.tipe,
-  }) : super(key: key);
+  });
 
   final int provId;
   final String tipe;
