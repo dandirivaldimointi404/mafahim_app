@@ -63,6 +63,8 @@ class KeranjangController extends GetxController {
     return totalHargaProduk + ongkir;
   }
 
+  get selectedPaymentMethod => null;
+
   @override
   void onInit() {
     beratC = TextEditingController(text: "$berat");

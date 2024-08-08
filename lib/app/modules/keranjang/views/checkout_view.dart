@@ -18,59 +18,103 @@ class CheckoutView extends GetView<KeranjangController> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Container(
-          width: double
-              .infinity, // Make the container fill the width of its parent
-          child: Card(
-            elevation: 2.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Obx(() {
-                final shippingCost = controller.shippingCost.value;
-                final double total = subTotal + shippingCost;
-                return Column(
-                  mainAxisSize: MainAxisSize
-                      .min, // Ensure the column's size fits its content
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Ringkasan Pengiriman',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  Container(
+                    width: double.infinity, // Make the container fill the width of its parent
+                    child: Card(
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Obx(() {
+                          final shippingCost = controller.shippingCost.value;
+                          final double total = subTotal + shippingCost;
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Ringkasan Pengiriman',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 16.0),
+                              _buildSummaryRow('Sub Total:', subTotal, controller.currencyFormat),
+                              const SizedBox(height: 8.0),
+                              GestureDetector(
+                                onTap: () => _showShippingOptions(context),
+                                child: _buildSummaryRow(
+                                  'Ongkos Kirim:',
+                                  shippingCost,
+                                  controller.currencyFormat,
+                                ),
+                              ),
+                              const SizedBox(height: 16.0),
+                              const Divider(),
+                              _buildSummaryRow('Total:', total, controller.currencyFormat, isTotal: true),
+                            ],
+                          );
+                        }),
                       ),
                     ),
-                    const SizedBox(height: 16.0),
-                    _buildSummaryRow(
-                        'Sub Total:', subTotal, controller.currencyFormat),
-                    const SizedBox(height: 8.0),
-                    GestureDetector(
-                      onTap: () => _showShippingOptions(context),
-                      child: _buildSummaryRow(
-                        'Ongkos Kirim:',
-                        shippingCost,
-                        controller.currencyFormat,
+                  ),
+                  const SizedBox(height: 16.0),
+                  Card(
+                    elevation: 2.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Metode Pembayaran',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                          // Placeholder for payment methods selection
+                          RadioListTile<String>(
+                            title: const Text('COD (Cash on Delivery)'),
+                            value: 'COD',
+                            groupValue: 'COD', // Placeholder value
+                            onChanged: (value) {
+                              // Handle payment method change
+                            },
+                          ),
+                          RadioListTile<String>(
+                            title: const Text('Transfer Bank'),
+                            value: 'Transfer',
+                            groupValue: 'Transfer', // Placeholder value
+                            onChanged: (value) {
+                              // Handle payment method change
+                            },
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 16.0),
-                    const Divider(),
-                    _buildSummaryRow('Total:', total, controller.currencyFormat,
-                        isTotal: true),
-                  ],
-                );
-              }),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildSummaryRow(String label, double amount, NumberFormat format,
-      {bool isTotal = false}) {
+  Widget _buildSummaryRow(String label, double amount, NumberFormat format, {bool isTotal = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -122,18 +166,20 @@ class CheckoutView extends GetView<KeranjangController> {
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(16.0),
-                children: controller.shippingOptions.map((option) {
-                  final label = option.keys.first;
-                  final cost = option.values.first;
-                  return ListTile(
-                    title: Text(label),
-                    subtitle: Text(controller.currencyFormat.format(cost)),
-                    onTap: () {
-                      controller.shippingCost.value = cost;
-                      Get.back();
-                    },
-                  );
-                }).toList(),
+                children: controller.shippingOptions.isNotEmpty
+                    ? controller.shippingOptions.map((option) {
+                        final label = option.keys.first;
+                        final cost = option.values.first;
+                        return ListTile(
+                          title: Text(label),
+                          subtitle: Text(controller.currencyFormat.format(cost)),
+                          onTap: () {
+                            controller.shippingCost.value = cost;
+                            Get.back();
+                          },
+                        );
+                      }).toList()
+                    : [const Center(child: Text('No options available'))],
               ),
             ),
           ],
@@ -141,8 +187,7 @@ class CheckoutView extends GetView<KeranjangController> {
       ),
       isDismissible: true,
       enableDrag: true,
-      backgroundColor:
-          Colors.transparent, // Optional, if you want a transparent background
+      backgroundColor: Colors.transparent, // Optional, if you want a transparent background
     );
   }
 }
