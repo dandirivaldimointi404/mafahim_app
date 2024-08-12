@@ -9,8 +9,9 @@ class HistoryView extends GetView<HistoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('History View'),
+        title: const Text('Order History'),
         centerTitle: true,
+        backgroundColor: Colors.green,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -19,13 +20,53 @@ class HistoryView extends GetView<HistoryController> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Sub Total: ${controller.orderSubTotal.value}', style: const TextStyle(fontSize: 18)),
-              Text('Ongkos Kirim: ${controller.orderShippingCost.value}', style: const TextStyle(fontSize: 18)),
-              Text('Metode Pembayaran: ${controller.orderPaymentMethod.value}', style: const TextStyle(fontSize: 18)),
+              Card(
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildSummaryRow('Sub Total:', controller.orderSubTotal.value),
+                      const Divider(),
+                      _buildSummaryRow('Ongkos Kirim:', controller.orderShippingCost.value),
+                      const Divider(),
+                      _buildSummaryRow('Metode Pembayaran:', controller.orderPaymentMethod.value),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20.0), // Optional space below the card
+              // You can add other widgets here if needed
             ],
           );
         }),
       ),
+    );
+  }
+
+  Widget _buildSummaryRow(String label, dynamic value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          value.toString(),
+          style: const TextStyle(
+            fontSize: 16.0,
+            color: Colors.grey,
+          ),
+        ),
+      ],
     );
   }
 }
