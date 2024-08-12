@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mafahim_app/app/modules/keranjang/controllers/keranjang_controller.dart';
+import 'package:mafahim_app/app/modules/history/controllers/history_controller.dart';
+import 'package:mafahim_app/app/modules/history/views/history_view.dart';
 
 class CheckoutView extends GetView<KeranjangController> {
   final double subTotal;
@@ -20,112 +22,113 @@ class CheckoutView extends GetView<KeranjangController> {
         children: [
           Expanded(
             child: Padding(
-               padding: const EdgeInsets.all(16.0),
-child: ListView(
-              children: [
-                Container(
-                  width: double.infinity,
-                  child: Card(
+              padding: const EdgeInsets.all(16.0),
+              child: ListView(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    child: Card(
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Obx(() {
+                          final shippingCost = controller.shippingCost.value;
+                          final shippingOption = controller.selectedShippingOption.value;
+                          final double total = subTotal + shippingCost;
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Ringkasan Pengiriman',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 16.0),
+                              _buildSummaryRow('Sub Total:', subTotal, controller.currencyFormat),
+                              const SizedBox(height: 8.0),
+                              GestureDetector(
+                                onTap: () => _showShippingOptions(context),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildSummaryRow(
+                                      'Ongkos Kirim:',
+                                      shippingCost,
+                                      controller.currencyFormat,
+                                    ),
+                                    if (shippingOption.isNotEmpty)
+                                      Text(
+                                        shippingOption,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 16.0),
+                              const Divider(),
+                              _buildSummaryRow('Total:', total, controller.currencyFormat, isTotal: true),
+                            ],
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  Card(
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Obx(() {
-                        final shippingCost = controller.shippingCost.value;
-                        final shippingOption =
-                            controller.selectedShippingOption.value;
-                        final double total = subTotal + shippingCost;
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Ringkasan Pengiriman',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Metode Pembayaran',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
                             ),
-                            const SizedBox(height: 16.0),
-                            _buildSummaryRow('Sub Total:', subTotal,
-                                controller.currencyFormat),
-                            const SizedBox(height: 8.0),
-                            GestureDetector(
-                              onTap: () => _showShippingOptions(context),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _buildSummaryRow(
-                                    'Ongkos Kirim:',
-                                    shippingCost,
-                                    controller.currencyFormat,
-                                  ),
-                                  if (shippingOption.isNotEmpty)
-                                    Text(
-                                      '$shippingOption',
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.grey[600],
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            const Divider(),
-                            _buildSummaryRow(
-                                'Total:', total, controller.currencyFormat,
-                                isTotal: true),
-                          ],
-                        );
-                      }),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                Card(
-                  elevation: 2.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Metode Pembayaran',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
                           ),
-                        ),
-                        const SizedBox(height: 16.0),
-                        RadioListTile<String>(
-                          title: const Text('COD (Cash on Delivery)'),
-                          value: 'COD',
-                          groupValue: 'COD', // Placeholder value
-                          onChanged: (value) {
-                            // Handle payment method change
-                          },
-                        ),
-                        RadioListTile<String>(
-                          title: const Text('Transfer Bank'),
-                          value: 'Transfer',
-                          groupValue: 'Transfer', // Placeholder value
-                          onChanged: (value) {
-                            // Handle payment method change
-                          },
-                        ),
-                      ],
+                          const SizedBox(height: 16.0),
+                          Obx(() {
+                            return Column(
+                              children: [
+                                RadioListTile<String>(
+                                  title: const Text('COD (Cash on Delivery)'),
+                                  value: 'COD',
+                                  groupValue: controller.selectedPaymentMethod.value,
+                                  onChanged: (value) {
+                                    controller.selectedPaymentMethod.value = value!;
+                                  },
+                                ),
+                                RadioListTile<String>(
+                                  title: const Text('Transfer Bank'),
+                                  value: 'Transfer',
+                                  groupValue: controller.selectedPaymentMethod.value,
+                                  onChanged: (value) {
+                                    controller.selectedPaymentMethod.value = value!;
+                                  },
+                                ),
+                              ],
+                            );
+                          }),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            )
-            
           ),
           Container(
             color: Colors.lightGreen[100],
@@ -138,20 +141,23 @@ child: ListView(
                     final totalHarga = controller.totalHargaProduk;
                     final shippingCost = controller.shippingCost.value;
                     final total = totalHarga + shippingCost;
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildSummaryRow(
-                            'Total:', total, controller.currencyFormat,
-                            isTotal: true),
+                        _buildSummaryRow('Total:', total, controller.currencyFormat, isTotal: true),
                       ],
                     );
                   }),
                   ElevatedButton(
                     onPressed: () {
                       final total = subTotal + controller.shippingCost.value;
-                      Get.to(() => CheckoutView(subTotal: total));
+
+                      // Simpan data ke kontroler History
+                      final historyController = Get.find<HistoryController>();
+                      historyController.saveOrderData(subTotal, controller.shippingCost.value, controller.selectedPaymentMethod.value);
+
+                      // Pindah ke HistoryView
+                      Get.to(() => const HistoryView());
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -168,8 +174,7 @@ child: ListView(
     );
   }
 
-  Widget _buildSummaryRow(String label, double amount, NumberFormat format,
-      {bool isTotal = false}) {
+  Widget _buildSummaryRow(String label, double amount, NumberFormat format, {bool isTotal = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -181,7 +186,7 @@ child: ListView(
           ),
         ),
         Text(
-          format.format(amount), // Format amount using NumberFormat
+          format.format(amount),
           style: TextStyle(
             fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
             fontSize: isTotal ? 18.0 : 16.0,
@@ -227,8 +232,7 @@ child: ListView(
                         final cost = option.values.first;
                         return ListTile(
                           title: Text(label),
-                          subtitle:
-                              Text(controller.currencyFormat.format(cost)),
+                          subtitle: Text(controller.currencyFormat.format(cost)),
                           onTap: () {
                             controller.shippingCost.value = cost;
                             controller.selectedShippingOption.value = label;
