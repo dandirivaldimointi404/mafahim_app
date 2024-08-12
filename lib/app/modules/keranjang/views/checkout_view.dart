@@ -1,137 +1,175 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:mafahim_app/app/modules/keranjang/controllers/keranjang_controller.dart';
 
 class CheckoutView extends GetView<KeranjangController> {
-  // const CheckoutView({super.key});
   final double subTotal;
 
   const CheckoutView({super.key, required this.subTotal});
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pengiriman'),
         centerTitle: true,
         backgroundColor: Colors.green,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    child: Card(
-                      elevation: 2.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Obx(() {
-                          final shippingCost = controller.shippingCost.value;
-                          final shippingOption = controller.selectedShippingOption.value;
-                          final double total = subTotal + shippingCost;
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Ringkasan Pengiriman',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 16.0),
-                              _buildSummaryRow('Sub Total:', subTotal, controller.currencyFormat),
-                              const SizedBox(height: 8.0),
-                              GestureDetector(
-                                onTap: () => _showShippingOptions(context),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _buildSummaryRow(
-                                      'Ongkos Kirim:',
-                                      shippingCost,
-                                      controller.currencyFormat,
-                                    ),
-                                    if (shippingOption.isNotEmpty)
-                                      Text(
-                                        '$shippingOption',
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.grey[600],
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 16.0),
-                              const Divider(),
-                              _buildSummaryRow('Total:', total, controller.currencyFormat, isTotal: true),
-                            ],
-                          );
-                        }),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  Card(
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+               padding: const EdgeInsets.all(16.0),
+child: ListView(
+              children: [
+                Container(
+                  width: double.infinity,
+                  child: Card(
                     elevation: 2.0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Metode Pembayaran',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
+                      child: Obx(() {
+                        final shippingCost = controller.shippingCost.value;
+                        final shippingOption =
+                            controller.selectedShippingOption.value;
+                        final double total = subTotal + shippingCost;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Ringkasan Pengiriman',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 16.0),
-                          RadioListTile<String>(
-                            title: const Text('COD (Cash on Delivery)'),
-                            value: 'COD',
-                            groupValue: 'COD', // Placeholder value
-                            onChanged: (value) {
-                              // Handle payment method change
-                            },
-                          ),
-                          RadioListTile<String>(
-                            title: const Text('Transfer Bank'),
-                            value: 'Transfer',
-                            groupValue: 'Transfer', // Placeholder value
-                            onChanged: (value) {
-                              // Handle payment method change
-                            },
-                          ),
-                        ],
-                      ),
+                            const SizedBox(height: 16.0),
+                            _buildSummaryRow('Sub Total:', subTotal,
+                                controller.currencyFormat),
+                            const SizedBox(height: 8.0),
+                            GestureDetector(
+                              onTap: () => _showShippingOptions(context),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildSummaryRow(
+                                    'Ongkos Kirim:',
+                                    shippingCost,
+                                    controller.currencyFormat,
+                                  ),
+                                  if (shippingOption.isNotEmpty)
+                                    Text(
+                                      '$shippingOption',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 16.0),
+                            const Divider(),
+                            _buildSummaryRow(
+                                'Total:', total, controller.currencyFormat,
+                                isTotal: true),
+                          ],
+                        );
+                      }),
                     ),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                Card(
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Metode Pembayaran',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 16.0),
+                        RadioListTile<String>(
+                          title: const Text('COD (Cash on Delivery)'),
+                          value: 'COD',
+                          groupValue: 'COD', // Placeholder value
+                          onChanged: (value) {
+                            // Handle payment method change
+                          },
+                        ),
+                        RadioListTile<String>(
+                          title: const Text('Transfer Bank'),
+                          value: 'Transfer',
+                          groupValue: 'Transfer', // Placeholder value
+                          onChanged: (value) {
+                            // Handle payment method change
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            )
+            
+          ),
+          Container(
+            color: Colors.lightGreen[100],
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Obx(() {
+                    final totalHarga = controller.totalHargaProduk;
+                    final shippingCost = controller.shippingCost.value;
+                    final total = totalHarga + shippingCost;
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSummaryRow(
+                            'Total:', total, controller.currencyFormat,
+                            isTotal: true),
+                      ],
+                    );
+                  }),
+                  ElevatedButton(
+                    onPressed: () {
+                      final total = subTotal + controller.shippingCost.value;
+                      Get.to(() => CheckoutView(subTotal: total));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.green,
+                    ),
+                    child: const Text('Buat Pesan'),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildSummaryRow(String label, double amount, NumberFormat format, {bool isTotal = false}) {
+  Widget _buildSummaryRow(String label, double amount, NumberFormat format,
+      {bool isTotal = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -189,10 +227,11 @@ class CheckoutView extends GetView<KeranjangController> {
                         final cost = option.values.first;
                         return ListTile(
                           title: Text(label),
-                          subtitle: Text(controller.currencyFormat.format(cost)),
+                          subtitle:
+                              Text(controller.currencyFormat.format(cost)),
                           onTap: () {
                             controller.shippingCost.value = cost;
-                            controller.selectedShippingOption.value = label; 
+                            controller.selectedShippingOption.value = label;
                             Get.back();
                           },
                         );

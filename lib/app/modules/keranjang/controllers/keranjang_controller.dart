@@ -19,6 +19,10 @@ class KeranjangController extends GetxController {
   var hiddenButton = true.obs;
   var kurir = "".obs;
 
+   RxString selectedPaymentMethod = 'COD'.obs;
+
+  String get paymentMethod => selectedPaymentMethod.value;
+
   RxDouble shippingCost = 25000.00.obs;
   RxString selectedShippingOption = ''.obs;
   final List<Map<String, double>> shippingOptions = [
@@ -63,7 +67,9 @@ class KeranjangController extends GetxController {
     return totalHargaProduk + ongkir;
   }
 
-  get selectedPaymentMethod => null;
+  // get selectedPaymentMethod => null;
+
+  // get paymentMethod => null;
 
   @override
   void onInit() {
