@@ -17,8 +17,7 @@ class KeranjangView extends GetView<KeranjangController> {
         backgroundColor: Colors.green,
         actions: [
           IconButton(
-            onPressed: () {
-            },
+            onPressed: () {},
             icon: const Icon(Icons.shopping_cart),
           ),
         ],
@@ -52,9 +51,7 @@ class KeranjangView extends GetView<KeranjangController> {
                         ),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(10),
-                          onTap: () {
-                           
-                          },
+                          onTap: () {},
                           child: ListTile(
                             leading: CircleAvatar(
                               radius: 20,
@@ -125,12 +122,11 @@ class KeranjangView extends GetView<KeranjangController> {
             }),
           ),
           Container(
-             color: Colors.lightGreen[100],
+            color: Colors.lightGreen[100],
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment
-                    .spaceBetween, 
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Obx(() {
                     final totalHarga = controller.totalHargaProduk;
@@ -141,14 +137,17 @@ class KeranjangView extends GetView<KeranjangController> {
                     );
                   }),
                   ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => const CheckoutView());
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Colors.green,
+                    onPressed: () {
+                      // Get.to(() => const CheckoutView());
+                      final subTotal = controller.totalHargaProduk;
+                      Get.to(() => CheckoutView(subTotal: subTotal));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.green,
+                    ),
+                    child: const Text('Checkout'),
                   ),
-                  child: const Text('Checkout'),
-                ),
                 ],
               ),
             ),

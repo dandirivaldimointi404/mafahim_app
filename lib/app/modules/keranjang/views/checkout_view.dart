@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:mafahim_app/app/modules/keranjang/controllers/keranjang_controller.dart';
 
 class CheckoutView extends GetView<KeranjangController> {
-  const CheckoutView({super.key});
+  // const CheckoutView({super.key});
+  final double subTotal;
+
+  const CheckoutView({super.key, required this.subTotal});
 
   @override
   Widget build(BuildContext context) {
-    final double subTotal = 150000.00;
+
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ringkasan Pengiriman'),
+        title: const Text('Pengiriman'),
         centerTitle: true,
         backgroundColor: Colors.green,
       ),
@@ -24,7 +28,7 @@ class CheckoutView extends GetView<KeranjangController> {
               child: ListView(
                 children: [
                   Container(
-                    width: double.infinity, // Make the container fill the width of its parent
+                    width: double.infinity,
                     child: Card(
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
@@ -34,6 +38,7 @@ class CheckoutView extends GetView<KeranjangController> {
                         padding: const EdgeInsets.all(16.0),
                         child: Obx(() {
                           final shippingCost = controller.shippingCost.value;
+                          final shippingOption = controller.selectedShippingOption.value;
                           final double total = subTotal + shippingCost;
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,10 +55,23 @@ class CheckoutView extends GetView<KeranjangController> {
                               const SizedBox(height: 8.0),
                               GestureDetector(
                                 onTap: () => _showShippingOptions(context),
-                                child: _buildSummaryRow(
-                                  'Ongkos Kirim:',
-                                  shippingCost,
-                                  controller.currencyFormat,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildSummaryRow(
+                                      'Ongkos Kirim:',
+                                      shippingCost,
+                                      controller.currencyFormat,
+                                    ),
+                                    if (shippingOption.isNotEmpty)
+                                      Text(
+                                        '$shippingOption',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ),
                               const SizedBox(height: 16.0),
@@ -84,7 +102,6 @@ class CheckoutView extends GetView<KeranjangController> {
                             ),
                           ),
                           const SizedBox(height: 16.0),
-                          // Placeholder for payment methods selection
                           RadioListTile<String>(
                             title: const Text('COD (Cash on Delivery)'),
                             value: 'COD',
@@ -175,6 +192,7 @@ class CheckoutView extends GetView<KeranjangController> {
                           subtitle: Text(controller.currencyFormat.format(cost)),
                           onTap: () {
                             controller.shippingCost.value = cost;
+                            controller.selectedShippingOption.value = label; 
                             Get.back();
                           },
                         );
@@ -187,7 +205,7 @@ class CheckoutView extends GetView<KeranjangController> {
       ),
       isDismissible: true,
       enableDrag: true,
-      backgroundColor: Colors.transparent, // Optional, if you want a transparent background
+      backgroundColor: Colors.transparent,
     );
   }
 }

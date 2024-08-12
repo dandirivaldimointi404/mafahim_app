@@ -19,14 +19,14 @@ class KeranjangController extends GetxController {
   var hiddenButton = true.obs;
   var kurir = "".obs;
 
-   RxDouble shippingCost = 25000.00.obs;
-    final List<Map<String, double>> shippingOptions = [
+  RxDouble shippingCost = 25000.00.obs;
+  RxString selectedShippingOption = ''.obs;
+  final List<Map<String, double>> shippingOptions = [
     {'Standar': 25000.00},
     {'Ekspres': 50000.00},
     {'Same Day': 100000.00},
   ];
 
-  // Format currency menggunakan NumberFormat
   final NumberFormat currencyFormat = NumberFormat.simpleCurrency(name: 'IDR');
 
   double berat = 0.0;
