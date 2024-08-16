@@ -63,8 +63,8 @@ class ProdukView extends GetView<ProdukController> {
                               top: Radius.circular(10.0),
                             ),
                             child: Image.network(
-                              product.gambarProduk.isNotEmpty
-                                  ? product.gambarProduk
+                              product.gambar.isNotEmpty
+                                  ? product.gambar
                                   : defaultImagePath,
                               fit: BoxFit.cover,
                               errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
@@ -90,7 +90,7 @@ class ProdukView extends GetView<ProdukController> {
                                 ),
                                 const SizedBox(height: 4.0),
                                 Text(
-                                  'Harga: Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '', decimalDigits: 0).format(product.hargaProduk)}',
+                                  'Harga: Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '', decimalDigits: 0).format(product.harga)}',
                                   style: TextStyle(
                                     fontSize: 10.0,
                                     color: Colors.grey[600],

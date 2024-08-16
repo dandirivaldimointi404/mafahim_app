@@ -56,7 +56,7 @@ class KeranjangView extends GetView<KeranjangController> {
                             leading: CircleAvatar(
                               radius: 20,
                               backgroundImage:
-                                  NetworkImage(keranjang.produk.gambarProduk),
+                                  NetworkImage(keranjang.produk.gambar),
                             ),
                             title: Row(
                               children: [

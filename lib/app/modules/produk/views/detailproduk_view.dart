@@ -43,7 +43,7 @@ class DetailProdukView extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Harga: Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '', decimalDigits: 0).format(product.hargaProduk)}',
+                            'Harga: Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '', decimalDigits: 0).format(product.harga)}',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -77,7 +77,7 @@ class DetailProdukView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                product.deskripsiProduk,
+                product.status,
                 style: const TextStyle(fontSize: 16),
               ),
             ),
@@ -112,11 +112,11 @@ class DetailProdukView extends StatelessWidget {
 
   Widget _buildProductImage() {
     // ignore: unnecessary_null_comparison
-    if (product.gambarProduk != null &&
-        (product.gambarProduk.startsWith('http') ||
-            product.gambarProduk.startsWith('https'))) {
+    if (product.gambar != null &&
+        (product.gambar.startsWith('http') ||
+            product.gambar.startsWith('https'))) {
       return Image.network(
-        product.gambarProduk,
+        product.gambar,
         fit: BoxFit.cover,
         width: double.infinity,
         height: double.infinity,

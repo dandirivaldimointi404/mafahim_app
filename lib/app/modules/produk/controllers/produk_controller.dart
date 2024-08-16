@@ -34,7 +34,7 @@ class ProdukController extends GetxController {
         for (var product in productList) {
           if (kDebugMode) {
             debugPrint(
-                'ID: ${product.id}, Nama: ${product.namaProduk}, Harga: ${product.hargaProduk}, Gambar: ${product.gambarProduk}');
+                'ID: ${product.id}, Nama: ${product.namaProduk}, Harga: ${product.harga}, Gambar: ${product.gambar}');
           }
         }
       } else {
