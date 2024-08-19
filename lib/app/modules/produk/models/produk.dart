@@ -3,6 +3,7 @@ class ProductModel {
   final String kategoriId;
   final String brandId;
   final String namaProduk;
+  final String deskripsi;
   final double harga;
   final String gambar;
   final double stok;
@@ -16,6 +17,7 @@ class ProductModel {
   ProductModel({
     required this.id,
     required this.namaProduk,
+    required this.deskripsi,
     required this.harga,
     required this.gambar,
     required this.stok,
@@ -30,6 +32,7 @@ class ProductModel {
     return ProductModel(
       id: json['id'],
       namaProduk: json['nama_produk'],
+     deskripsi: json['deskripsi'] ?? '',
       harga: double.parse(json['harga'].toString()),
       stok: double.parse(json['stok'].toString()),
       gambar: json['gambar'],

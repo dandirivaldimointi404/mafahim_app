@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:sp_util/sp_util.dart';
 
 class BaseProvider extends GetConnect {
-  // var myHttpServer = "https://balegade-lombok.alpsstudio.id/api";
   var myHttpServer = "https://mafahim.alpsstudio.id/api";
 
   Map<String, String> get myHttpHeader {

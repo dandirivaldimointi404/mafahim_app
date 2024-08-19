@@ -150,12 +150,10 @@ class CheckoutView extends GetView<KeranjangController> {
                   }),
                   ElevatedButton(
                     onPressed: () {
-                      final total = subTotal + controller.shippingCost.value;
+                      // final total = subTotal + controller.shippingCost.value;
 
-                      // Simpan data ke kontroler History
                       final historyController = Get.find<HistoryController>();
                       historyController.saveOrderData(subTotal, controller.shippingCost.value, controller.selectedPaymentMethod.value);
-
                       // Pindah ke HistoryView
                       Get.to(() => const HistoryView());
                     },

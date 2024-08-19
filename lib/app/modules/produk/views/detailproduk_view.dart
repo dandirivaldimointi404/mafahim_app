@@ -13,6 +13,9 @@ class DetailProdukView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(product.namaProduk),
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -29,7 +32,7 @@ class DetailProdukView extends StatelessWidget {
                     left: 0,
                     right: 0,
                     child: Container(
-                      color: Colors.green.withOpacity(0.5),
+                      color: Colors.green.withOpacity(0.8),
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +80,7 @@ class DetailProdukView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                product.status,
+                product.deskripsi,
                 style: const TextStyle(fontSize: 16),
               ),
             ),
@@ -131,7 +134,7 @@ class DetailProdukView extends StatelessWidget {
 
   Widget _buildDefaultImage() {
     return Image.asset(
-      'images/mafahim.png', // Path to your default image asset
+      'images/mafahim.png',
       fit: BoxFit.cover,
       width: double.infinity,
       height: double.infinity,
