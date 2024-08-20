@@ -11,6 +11,17 @@ class KeranjangProvider extends BaseProvider {
     return get('$myHttpServer/index',  headers: myHttpHeader);
   }
 
+   Future<int> getCartItemCount() async {
+    final response = await getKeranjang();
+    if (response.statusCode == 200) {
+      // Assume response.body contains a list of cart items
+      List<dynamic> cartItems = response.body['data'];
+      return cartItems.length;
+    } else {
+      return 0;
+    }
+  }
+
   deleteKeranjang(int id) {}
 
   updateQuantity(int id, int updatedQuantity) {}
