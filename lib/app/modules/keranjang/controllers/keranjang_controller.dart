@@ -19,7 +19,7 @@ class KeranjangController extends GetxController {
   var hiddenButton = true.obs;
   var kurir = "".obs;
 
-   RxString selectedPaymentMethod = 'COD'.obs;
+  RxString selectedPaymentMethod = 'COD'.obs;
 
   String get paymentMethod => selectedPaymentMethod.value;
 

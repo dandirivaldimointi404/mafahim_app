@@ -47,7 +47,8 @@ class KeranjangView extends GetView<KeranjangController> {
                       RxInt itemQuantity = controller.itemQuantities[index];
 
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         child: Card(
                           elevation: 3,
                           shape: RoundedRectangleBorder(
@@ -59,13 +60,15 @@ class KeranjangView extends GetView<KeranjangController> {
                             child: ListTile(
                               leading: CircleAvatar(
                                 radius: 20,
-                                backgroundImage: NetworkImage(keranjang.produk.gambar),
+                                backgroundImage:
+                                    NetworkImage(keranjang.produk.gambar),
                               ),
                               title: Row(
                                 children: [
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           keranjang.produk.namaProduk,
@@ -135,20 +138,23 @@ class KeranjangView extends GetView<KeranjangController> {
                     final totalHarga = controller.totalHargaProduk;
                     return Text(
                       'Total: ${NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0).format(totalHarga)}',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     );
                   }),
-                  ElevatedButton(
-                    onPressed: () {
-                      final subTotal = controller.totalHargaProduk;
-                      Get.to(() => CheckoutView(subTotal: subTotal));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.green,
-                    ),
-                    child: const Text('Checkout'),
-                  ),
+                  Obx(() => ElevatedButton(
+                        onPressed: controller.keranjangList.isNotEmpty
+                            ? () {
+                                final subTotal = controller.totalHargaProduk;
+                                Get.to(() => CheckoutView(subTotal: subTotal));
+                              }
+                            : null,
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.green,
+                        ),
+                        child: const Text('Checkout'),
+                      )),
                 ],
               ),
             ),
