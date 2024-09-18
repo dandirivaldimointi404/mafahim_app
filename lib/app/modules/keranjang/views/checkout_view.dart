@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:mafahim_app/app/modules/keranjang/controllers/keranjang_controller.dart';
 import 'package:mafahim_app/app/modules/history/controllers/history_controller.dart';
 import 'package:mafahim_app/app/modules/history/views/history_view.dart';
+import 'package:mafahim_app/app/modules/keranjang/views/alamat_view.dart';
 
 class CheckoutView extends GetView<KeranjangController> {
   final double subTotal;
@@ -20,12 +21,75 @@ class CheckoutView extends GetView<KeranjangController> {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
+              elevation: 2.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: Colors.green,
+                    ),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Alamat Pengiriman',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 4.0),
+                          Obx(() {
+                            final provinsi = controller.provinsi.value;
+                            final kota = controller.kota.value;
+                            final desa = controller.desa.value;
+                            final nomorTelepon = controller.nomorTelepon.value;
+                            return Text(
+                              '$provinsi\n$kota\n$desa\n$nomorTelepon',
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                color: Colors.grey,
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.to(() => AlamatView());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.green,
+                        backgroundColor: Colors.grey[200],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      child: const Text('Ubah'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: ListView(
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     child: Card(
                       elevation: 2.0,
@@ -36,7 +100,8 @@ class CheckoutView extends GetView<KeranjangController> {
                         padding: const EdgeInsets.all(16.0),
                         child: Obx(() {
                           final shippingCost = controller.shippingCost.value;
-                          final shippingOption = controller.selectedShippingOption.value;
+                          final shippingOption =
+                              controller.selectedShippingOption.value;
                           final double total = subTotal + shippingCost;
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +114,8 @@ class CheckoutView extends GetView<KeranjangController> {
                                 ),
                               ),
                               const SizedBox(height: 16.0),
-                              _buildSummaryRow('Sub Total:', subTotal, controller.currencyFormat),
+                              _buildSummaryRow('Sub Total:', subTotal,
+                                  controller.currencyFormat),
                               const SizedBox(height: 8.0),
                               GestureDetector(
                                 onTap: () => _showShippingOptions(context),
@@ -74,7 +140,9 @@ class CheckoutView extends GetView<KeranjangController> {
                               ),
                               const SizedBox(height: 16.0),
                               const Divider(),
-                              _buildSummaryRow('Total:', total, controller.currencyFormat, isTotal: true),
+                              _buildSummaryRow(
+                                  'Total:', total, controller.currencyFormat,
+                                  isTotal: true),
                             ],
                           );
                         }),
@@ -106,17 +174,21 @@ class CheckoutView extends GetView<KeranjangController> {
                                 RadioListTile<String>(
                                   title: const Text('COD (Cash on Delivery)'),
                                   value: 'COD',
-                                  groupValue: controller.selectedPaymentMethod.value,
+                                  groupValue:
+                                      controller.selectedPaymentMethod.value,
                                   onChanged: (value) {
-                                    controller.selectedPaymentMethod.value = value!;
+                                    controller.selectedPaymentMethod.value =
+                                        value!;
                                   },
                                 ),
                                 RadioListTile<String>(
                                   title: const Text('Transfer Bank'),
                                   value: 'Transfer',
-                                  groupValue: controller.selectedPaymentMethod.value,
+                                  groupValue:
+                                      controller.selectedPaymentMethod.value,
                                   onChanged: (value) {
-                                    controller.selectedPaymentMethod.value = value!;
+                                    controller.selectedPaymentMethod.value =
+                                        value!;
                                   },
                                 ),
                               ],
@@ -144,25 +216,40 @@ class CheckoutView extends GetView<KeranjangController> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildSummaryRow('Total:', total, controller.currencyFormat, isTotal: true),
+                        _buildSummaryRow(
+                            'Total:', total, controller.currencyFormat,
+                            isTotal: true),
                       ],
                     );
                   }),
-                  ElevatedButton(
-                    onPressed: () {
-                      // final total = subTotal + controller.shippingCost.value;
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     final historyController = Get.find<HistoryController>();
+                  //     historyController.saveOrderData(
+                  //         subTotal,
+                  //         controller.shippingCost.value,
+                  //         controller.selectedPaymentMethod.value);
+                  //     // Pindah ke HistoryView
+                  //     Get.to(() => const HistoryView());
+                  //   },
+                  //   style: ElevatedButton.styleFrom(
+                  //     foregroundColor: Colors.white,
+                  //     backgroundColor: Colors.green,
+                  //   ),
+                  //   child: const Text('Buat Pesan'),
+                  // ),
 
-                      final historyController = Get.find<HistoryController>();
-                      historyController.saveOrderData(subTotal, controller.shippingCost.value, controller.selectedPaymentMethod.value);
-                      // Pindah ke HistoryView
-                      Get.to(() => const HistoryView());
+                  ElevatedButton(
+                    onPressed: () async {
+                      final keranjangController =
+                          Get.find<KeranjangController>();
+                      final success = await keranjangController.postTransaction();
+                      if (success) {
+                        Get.to(() => const HistoryView());
+                      }
                     },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.green,
-                    ),
-                    child: const Text('Buat Pesan'),
-                  ),
+                    child: const Text('Confirm Transaction'),
+                  )
                 ],
               ),
             ),
@@ -172,7 +259,8 @@ class CheckoutView extends GetView<KeranjangController> {
     );
   }
 
-  Widget _buildSummaryRow(String label, double amount, NumberFormat format, {bool isTotal = false}) {
+  Widget _buildSummaryRow(String label, double amount, NumberFormat format,
+      {bool isTotal = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -230,7 +318,8 @@ class CheckoutView extends GetView<KeranjangController> {
                         final cost = option.values.first;
                         return ListTile(
                           title: Text(label),
-                          subtitle: Text(controller.currencyFormat.format(cost)),
+                          subtitle:
+                              Text(controller.currencyFormat.format(cost)),
                           onTap: () {
                             controller.shippingCost.value = cost;
                             controller.selectedShippingOption.value = label;

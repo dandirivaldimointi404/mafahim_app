@@ -7,7 +7,7 @@ import 'package:mafahim_app/app/modules/profile/views/profile_view.dart';
 import '../controllers/main_menu_controller.dart';
 
 class MainMenuView extends StatelessWidget {
-  const MainMenuView({Key? key}) : super(key: key);
+  const MainMenuView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class MainMenuView extends StatelessWidget {
                 color: Colors.red,
                 borderRadius: BorderRadius.circular(10),
               ),
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 minWidth: 16,
                 minHeight: 16,
               ),

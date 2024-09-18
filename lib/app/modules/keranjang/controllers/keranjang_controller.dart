@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mafahim_app/app/data/keranjang_provider.dart';
+import 'package:mafahim_app/app/data/transaksi_provider.dart';
 import 'package:mafahim_app/app/modules/keranjang/models/keranjang.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
@@ -18,6 +19,11 @@ class KeranjangController extends GetxController {
   var kotaTujuanId = 0.obs;
   var hiddenButton = true.obs;
   var kurir = "".obs;
+
+  var provinsi = ''.obs;
+  var kota = ''.obs;
+  var desa = ''.obs;
+  var nomorTelepon = ''.obs;
 
   RxString selectedPaymentMethod = 'COD'.obs;
 
@@ -42,8 +48,12 @@ class KeranjangController extends GetxController {
   var isLoading = true.obs;
   RxList<RxInt> itemQuantities = <RxInt>[].obs;
   final KeranjangProvider keranjangProvider;
+  final TransaksiProvider transaksiProvider;
 
-  KeranjangController({required this.keranjangProvider});
+  KeranjangController({
+    required this.keranjangProvider,
+    required this.transaksiProvider,
+  });
 
   double get totalHargaProduk {
     double total = 0;
@@ -67,9 +77,11 @@ class KeranjangController extends GetxController {
     return totalHargaProduk + ongkir;
   }
 
-  // get selectedPaymentMethod => null;
+  get locationController => null;
 
-  // get paymentMethod => null;
+  get address => null;
+
+  get shippingAddress => null;
 
   @override
   void onInit() {
@@ -292,5 +304,43 @@ class KeranjangController extends GetxController {
       print("$berat gram");
     }
     showButton();
+  }
+
+  Future<bool> postTransaction() async {
+    Map<String, dynamic> transaksiData = {
+      "total_pembayaran": totalHargaKeseluruhan,
+      "metode_pembayaran": selectedPaymentMethod.value,
+      "bukti_transaksi": "",
+      "provinsi": provinsi.value,
+      "kota": kota.value,
+      "no_resi": "",
+      "details": keranjangList
+          .map((item) => {
+                "produk_id": item.id,
+                "qty": itemQuantities[keranjangList.indexOf(item)].value
+              })
+          .toList(),
+    };
+
+    print('Transaksi Data: $transaksiData');
+
+    try {
+      final response = await transaksiProvider.postTransaksi(transaksiData);
+      print('Response Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+
+      if (response.statusCode == 201) {
+        Get.snackbar('Success', 'Transaction successful');
+        return true;
+      } else {
+        Get.snackbar('Error', 'Failed to complete transaction');
+        return false;
+      }
+    } catch (e) {
+      print('Exception: $e');
+      Get.snackbar(
+          'Error', 'Exception occurred while processing the transaction');
+      return false;
+    }
   }
 }
