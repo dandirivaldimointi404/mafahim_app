@@ -316,7 +316,7 @@ class KeranjangController extends GetxController {
       "no_resi": "",
       "details": keranjangList
           .map((item) => {
-                "produk_id": item.id,
+                "produk_id": item.produk.id,
                 "qty": itemQuantities[keranjangList.indexOf(item)].value
               })
           .toList(),
