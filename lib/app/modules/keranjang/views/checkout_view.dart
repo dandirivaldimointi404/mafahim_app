@@ -42,23 +42,21 @@ class CheckoutView extends GetView<KeranjangController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Alamat Pengiriman',
                             style: TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 4.0),
+                          const SizedBox(height: 4.0),
                           Obx(() {
-                            final provinsi = controller.provinsi.value;
-                            final kota = controller.kota.value;
-                            final desa = controller.desa.value;
+                            final provinsi = controller.provinsi.value; final kota = controller.kota.value;final desa = controller.desa.value;
                             final nomorTelepon = controller.nomorTelepon.value;
                             return Text(
-                              '$provinsi\n$kota\n$desa\n$nomorTelepon',
-                              style: TextStyle(
-                                fontSize: 10.0,
+                              '$provinsi,$kota,$desa\n$nomorTelepon',
+                              style: const TextStyle(
+                                fontSize: 14.0,
                                 color: Colors.grey,
                               ),
                             );
