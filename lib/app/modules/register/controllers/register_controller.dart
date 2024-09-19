@@ -10,18 +10,24 @@ class RegisterController extends GetxController {
   final nameController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final nohpController = TextEditingController();
+  final alamatController = TextEditingController();
 
   @override
   void onClose() {
     nameController.dispose();
     usernameController.dispose();
     passwordController.dispose();
+    nohpController.dispose();
+    alamatController.dispose();
     super.onClose();
   }
 
   void register() async {
     String username = usernameController.text.trim();
     String name = nameController.text.trim();
+    String nohp = nohpController.text.trim();
+    String alamat = alamatController.text.trim();
     String password = passwordController.text;
 
     if (name.isEmpty || username.isEmpty || password.isEmpty) {
@@ -38,6 +44,8 @@ class RegisterController extends GetxController {
         'name': name,
         'username': username,
         'password': password,
+        'no_hp': nohp,
+        'alamat': alamat,
       };
 
       try {
@@ -55,6 +63,8 @@ class RegisterController extends GetxController {
 
           SpUtil.putString('name', data['name'] ?? "");
           SpUtil.putString('username', data['username'] ?? "");
+          SpUtil.putString('no_hp', data['no_hp'] ?? "");
+          SpUtil.putString('alamat', data['alamat'] ?? "");
           SpUtil.putString('access_token', accessToken);
           SpUtil.putString('id', data['id'].toString());
           SpUtil.putBool('isLogin', true);

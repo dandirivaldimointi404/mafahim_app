@@ -26,6 +26,10 @@ class RegisterView extends GetView<RegisterController> {
               const SizedBox(height: 16),
               buildPasswordTextField(),
               const SizedBox(height: 32), 
+              buildNoHpTextField(),
+              const SizedBox(height: 32), 
+              buildAlamatTextField(),
+              const SizedBox(height: 32), 
               ElevatedButton(
                 onPressed: () {
                   controller.register();
@@ -69,6 +73,28 @@ class RegisterView extends GetView<RegisterController> {
       obscureText: true,
       decoration: const InputDecoration(
         labelText: 'Password',
+        border: OutlineInputBorder(),
+      ),
+    );
+  }
+
+   Widget buildNoHpTextField() {
+    return TextField(
+      controller: controller.nohpController,
+      // obscureText: true,
+      decoration: const InputDecoration(
+        labelText: 'No HP',
+        border: OutlineInputBorder(),
+      ),
+    );
+  }
+
+  Widget buildAlamatTextField() {
+    return TextField(
+      controller: controller.alamatController,
+      // obscureText: true,
+      decoration: const InputDecoration(
+        labelText: 'Alamat',
         border: OutlineInputBorder(),
       ),
     );

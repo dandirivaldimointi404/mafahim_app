@@ -170,18 +170,8 @@ class CheckoutView extends GetView<KeranjangController> {
                             return Column(
                               children: [
                                 RadioListTile<String>(
-                                  title: const Text('COD (Cash on Delivery)'),
+                                  title: const Text('Cash'),
                                   value: 'COD',
-                                  groupValue:
-                                      controller.selectedPaymentMethod.value,
-                                  onChanged: (value) {
-                                    controller.selectedPaymentMethod.value =
-                                        value!;
-                                  },
-                                ),
-                                RadioListTile<String>(
-                                  title: const Text('Transfer Bank'),
-                                  value: 'Transfer',
                                   groupValue:
                                       controller.selectedPaymentMethod.value,
                                   onChanged: (value) {

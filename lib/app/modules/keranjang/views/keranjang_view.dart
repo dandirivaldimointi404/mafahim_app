@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:mafahim_app/app/modules/history/views/history_view.dart';
 import 'package:mafahim_app/app/modules/keranjang/controllers/keranjang_controller.dart';
 import 'package:mafahim_app/app/modules/keranjang/models/keranjang.dart';
 import 'package:mafahim_app/app/modules/keranjang/views/checkout_view.dart';
@@ -20,7 +21,9 @@ class KeranjangView extends GetView<KeranjangController> {
         backgroundColor: Colors.green,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => const HistoryView());
+            },
             icon: const Icon(Icons.shopping_cart),
           ),
         ],
