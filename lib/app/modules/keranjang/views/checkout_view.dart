@@ -100,7 +100,8 @@ class CheckoutView extends GetView<KeranjangController> {
                           final shippingCost = controller.shippingCost.value;
                           final shippingOption =
                               controller.selectedShippingOption.value;
-                          final double total = subTotal + shippingCost;
+                          final double total = subTotal;
+                          // final double total = subTotal + shippingCost;
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -115,27 +116,27 @@ class CheckoutView extends GetView<KeranjangController> {
                               _buildSummaryRow('Sub Total:', subTotal,
                                   controller.currencyFormat),
                               const SizedBox(height: 8.0),
-                              GestureDetector(
-                                onTap: () => _showShippingOptions(context),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _buildSummaryRow(
-                                      'Ongkos Kirim:',
-                                      shippingCost,
-                                      controller.currencyFormat,
-                                    ),
-                                    if (shippingOption.isNotEmpty)
-                                      Text(
-                                        shippingOption,
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.grey[600],
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
+                              // GestureDetector(
+                              //   onTap: () => _showShippingOptions(context),
+                              //   child: Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       _buildSummaryRow(
+                              //         'Ongkos Kirim:',
+                              //         shippingCost,
+                              //         controller.currencyFormat,
+                              //       ),
+                              //       if (shippingOption.isNotEmpty)
+                              //         Text(
+                              //           shippingOption,
+                              //           style: TextStyle(
+                              //             fontSize: 16.0,
+                              //             color: Colors.grey[600],
+                              //           ),
+                              //         ),
+                              //     ],
+                              //   ),
+                              // ),
                               const SizedBox(height: 16.0),
                               const Divider(),
                               _buildSummaryRow(
@@ -200,7 +201,7 @@ class CheckoutView extends GetView<KeranjangController> {
                   Obx(() {
                     final totalHarga = controller.totalHargaProduk;
                     final shippingCost = controller.shippingCost.value;
-                    final total = totalHarga + shippingCost;
+                    final total = totalHarga;
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

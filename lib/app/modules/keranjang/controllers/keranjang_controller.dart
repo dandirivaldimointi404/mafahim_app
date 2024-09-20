@@ -74,7 +74,7 @@ class KeranjangController extends GetxController {
 
   double get totalHargaKeseluruhan {
     double ongkir = 5000;
-    return totalHargaProduk + ongkir;
+    return totalHargaProduk;
   }
 
   get locationController => null;
